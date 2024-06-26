@@ -14,18 +14,12 @@ def CheckPassword(event):
     if CheckPasswordStrength(entered_text) == "Strong":
         result_label.text = "Password Lvl: Strong"
     elif CheckPasswordStrength(entered_text) == "Moderate":
-        result_label.text = "Password Lvl: Moderate, Please make sure your password contains at least; \n13 characters, one upper and lower case letter, one number and \none special character!"
+        result_label.text = "Password Lvl: Moderate, Please make sure your password contains at least; \n10 characters, one upper and lower case letter, one number and \none special character!"
     else:
-        result_label.text = "Password Lvl: Weak, Please make sure your password contains at least; \n13 characters, one upper and lower case letter, one number and \none special character!"
+        result_label.text = "Password Lvl: Weak, Please make sure your password contains at least; \n10 characters, one upper and lower case letter, one number and \none special character!"
 
 def ToggleMask(event):
     secret.toggle()
-
-def PasswordLength(password):
-    if len(password) > 13:
-        return True
-    else:
-        return False
 
 def ContainsUpper(password):
     if re.search(r'[ABCDEFGHIJKLMNOPQRSTUVWXYZ]', password):
@@ -52,11 +46,11 @@ def ContainsSymbol(password):
         return False
 
 def CheckPasswordStrength(password):
-    if len(password) < 13:
+    if len(password) < 10:
         return "Weak"
-    elif len(password) > 13 and ContainsUpper(password) and ContainsLower(password) and ContainsNumber(password) and ContainsSymbol(password):
+    elif len(password) > 10 and ContainsUpper(password) and ContainsLower(password) and ContainsNumber(password) and ContainsSymbol(password):
         return "Strong"
-    elif len(password) > 13 and ContainsUpper(password) or ContainsLower(password) or ContainsNumber(password) or ContainsSymbol(password):
+    elif len(password) > 10 and ContainsUpper(password) or ContainsLower(password) or ContainsNumber(password) or ContainsSymbol(password):
         return "Moderate"
 
 
@@ -76,7 +70,7 @@ secret.width = 50
 check = gp.Checkbox(app, "Show passowrd")
 check.add_event_listener("change", ToggleMask)
 
-app.set_grid(6, 2)
+app.set_grid(7, 2)
 app.add(question, 1, 1)
 app.add(secret, 2, 1)
 app.add(check, 3, 1)
