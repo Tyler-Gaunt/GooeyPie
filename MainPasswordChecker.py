@@ -21,13 +21,44 @@ def CheckPassword(event):
 def ToggleMask(event):
     secret.toggle()
 
+def PasswordLength(password):
+    if len(password) > 13:
+        return True
+    else:
+        return False
+
+def ContainsUpper(password):
+    if re.search(r'[ABCDEFGHIJKLMNOPQRSTUVWXYZ]', password):
+        return True
+    else:  
+        return False
+    
+def ContainsLower(password):
+    if re.search(r'[abcdefghijklmnopqrstuvwxyz]', password):
+        return True
+    else:
+        return False
+
+def ContainsNumber(password):
+    if re.search(r'[1234567890]', password):
+        return True
+    else:
+        return False
+    
+def ContainsSymbol(password):
+    if re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return True
+    else:
+        return False
+
 def CheckPasswordStrength(password):
-    if len(password) > 13 and re.search(r'[A-Z]', password) and re.search(r'[a-z]', password) and re.search(r'\d', password) and re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-        return "Strong"
-    elif len(password) > 13 and (re.search(r'[A-Z]', password) or re.search(r'[a-z]', password)) and (re.search(r'\d', password) or re.search(r'[!@#$%^&*(),.?":{}|<>]', password)):
-        return "Moderate"
-    elif len(password) < 13:
+    if len(password) < 13:
         return "Weak"
+    elif len(password) > 13 and ContainsUpper(password) and ContainsLower(password) and ContainsNumber(password) and ContainsSymbol(password):
+        return "Strong"
+    elif len(password) > 13 and ContainsUpper(password) or ContainsLower(password) or ContainsNumber(password) or ContainsSymbol(password):
+        return "Moderate"
+
 
 app = gp.GooeyPieApp("PassWizard")
 
@@ -43,15 +74,15 @@ secret = gp.Secret(app)
 secret.width = 50
 
 check = gp.Checkbox(app, "Show passowrd")
-check.AddEventListener("change", ToggleMask)
+check.add_event_listener("change", ToggleMask)
 
-app.SetGrid(6, 2)
-app.Add(question, 1, 1)
-app.Add(secret, 2, 1)
-app.Add(check, 3, 1)
-app.Add(submit_button, 4, 1)
-app.Add(loading_bar, 5, 1, column_span=2, fill=True)
-app.Add(result_label, 6, 1)
+app.set_grid(6, 2)
+app.add(question, 1, 1)
+app.add(secret, 2, 1)
+app.add(check, 3, 1)
+app.add(submit_button, 4, 1)
+app.add(loading_bar, 5, 1, column_span=2, fill=True)
+app.add(result_label, 6, 1)
 
-app.Run()
+app.run()
 
