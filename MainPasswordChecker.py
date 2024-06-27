@@ -48,9 +48,9 @@ def ContainsSymbol(password):
 def CheckPasswordStrength(password):
     if len(password) < 10:
         return "Weak"
-    elif len(password) > 10 and ContainsUpper(password) and ContainsLower(password) and ContainsNumber(password) and ContainsSymbol(password):
+    elif len(password) >= 10 and ContainsUpper(password) and ContainsLower(password) and ContainsNumber(password) and ContainsSymbol(password):
         return "Strong"
-    elif len(password) > 10 and ContainsUpper(password) or ContainsLower(password) or ContainsNumber(password) or ContainsSymbol(password):
+    elif len(password) >= 10 and ContainsUpper(password) or ContainsLower(password) or ContainsNumber(password) or ContainsSymbol(password):
         return "Moderate"
 
 
